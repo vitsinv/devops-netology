@@ -3,6 +3,8 @@
 
 И вновь новые строки
 
+Update with Pycharm
+
 Описание .gitignore для папки terraform и ее подпапок:
 # Local .terraform directories - Игнорятся папки с названием .terraform, вне зависимости от подпапок
 **/.terraform/*
