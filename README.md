@@ -1,6 +1,8 @@
 # devops-netology
 # first update this file
 
+И вновь новые строки
+
 Описание .gitignore для папки terraform и ее подпапок:
 # Local .terraform directories - Игнорятся папки с названием .terraform, вне зависимости от подпапок
 **/.terraform/*
