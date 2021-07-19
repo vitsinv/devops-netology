@@ -1,296 +1,938 @@
-# devops-netology
-# first update this file
-
-Описание .gitignore для папки terraform и ее подпапок:
-# Local .terraform directories - Игнорятся папки с названием .terraform, вне зависимости от подпапок
-**/.terraform/*
-
-# .tfstate files - игнорятся как любые файлы с расширением .tfstate и с любым расширением после .tfstate.
-# При этом любое продолжение после tfstate без точки игнориться не будет
-*.tfstate
-*.tfstate.*
-
-# Исключаем crash.log файлы
-crash.log
-
-# Исключаем все файлы с расширением tfvars
-*.tfvars
-
-# Исключаем файлы override.tf и override.tf.json а такжи все вариации заканчивающиеся на _override.tf и 
-# _override.tf.json
-
-*_override.tf
-*_override.tf.json
-
-# При этом возможно исключение для example_override.tf, но по умолчанию не работает
-# !example_override.tf
-
-# Возможно исключение всех файлов содержащих tfplan
-# example: *tfplan*
-
-# Игнорирование файлов конфигураций CLI
-.terraformrc
-terraform.rc
-
-Задание 2:
-Вывод помощи по команде git:
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-These are common Git commands used in various situations:
-
-start a working area (see also: git help tutorial)
-   clone     Clone a repository into a new directory
-   init      Create an empty Git repository or reinitialize an existing one
-
-work on the current change (see also: git help everyday)
-   add       Add file contents to the index
-   mv        Move or rename a file, a directory, or a symlink
-   restore   Restore working tree files
-   rm        Remove files from the working tree and from the index
-
-examine the history and state (see also: git help revisions)
-   bisect    Use binary search to find the commit that introduced a bug
-   diff      Show changes between commits, commit and working tree, etc
-   grep      Print lines matching a pattern
-   log       Show commit logs
-   show      Show various types of objects
-   status    Show the working tree status
-
-grow, mark and tweak your common history
-   branch    List, create, or delete branches
-   commit    Record changes to the repository
-   merge     Join two or more development histories together
-   rebase    Reapply commits on top of another base tip
-   reset     Reset current HEAD to the specified state
-   switch    Switch branches
-   tag       Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-   fetch     Download objects and refs from another repository
-   pull      Fetch from and integrate with another repository or a local branch
-   push      Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-See 'git help git' for an overview of the system.
-
-Вывод помощи по команде git add:
-(в windows открывается в виде html файла)
-git-add(1) Manual Page
-NAME
-git-add - Add file contents to the index
-
-SYNOPSIS
-git add [--verbose | -v] [--dry-run | -n] [--force | -f] [--interactive | -i] [--patch | -p]
-          [--edit | -e] [--[no-]all | --[no-]ignore-removal | [--update | -u]]
-          [--intent-to-add | -N] [--refresh] [--ignore-errors] [--ignore-missing] [--renormalize]
-          [--chmod=(+|-)x] [--] [<pathspec>…​]
-DESCRIPTION
-This command updates the index using the current content found in the working tree, to prepare the content staged for the next commit. It typically adds the current content of existing paths as a whole, but with some options it can also be used to add content with only part of the changes made to the working tree files applied, or remove paths that do not exist in the working tree anymore.
-
-The "index" holds a snapshot of the content of the working tree, and it is this snapshot that is taken as the contents of the next commit. Thus after making any changes to the working tree, and before running the commit command, you must use the add command to add any new or modified files to the index.
-
-This command can be performed multiple times before a commit. It only adds the content of the specified file(s) at the time the add command is run; if you want subsequent changes included in the next commit, then you must run git add again to add the new content to the index.
-
-The git status command can be used to obtain a summary of which files have changes that are staged for the next commit.
-
-The git add command will not add ignored files by default. If any ignored files were explicitly specified on the command line, git add will fail with a list of ignored files. Ignored files reached by directory recursion or filename globbing performed by Git (quote your globs before the shell) will be silently ignored. The git add command can be used to add ignored files with the -f (force) option.
-
-Please see git-commit(1) for alternative ways to add content to a commit.
-
-OPTIONS
-<pathspec>…​
-Files to add content from. Fileglobs (e.g. *.c) can be given to add all matching files. Also a leading directory name (e.g. dir to add dir/file1 and dir/file2) can be given to update the index to match the current state of the directory as a whole (e.g. specifying dir will record not just a file dir/file1 modified in the working tree, a file dir/file2 added to the working tree, but also a file dir/file3 removed from the working tree). Note that older versions of Git used to ignore removed files; use --no-all option if you want to add modified or new files but ignore removed ones.
-
-For more details about the <pathspec> syntax, see the pathspec entry in gitglossary(7).
-
--n
---dry-run
-Don’t actually add the file(s), just show if they exist and/or will be ignored.
-
--v
---verbose
-Be verbose.
-
--f
---force
-Allow adding otherwise ignored files.
-
--i
---interactive
-Add modified contents in the working tree interactively to the index. Optional path arguments may be supplied to limit operation to a subset of the working tree. See “Interactive mode” for details.
-
--p
---patch
-Interactively choose hunks of patch between the index and the work tree and add them to the index. This gives the user a chance to review the difference before adding modified contents to the index.
-
-This effectively runs add --interactive, but bypasses the initial command menu and directly jumps to the patch subcommand. See “Interactive mode” for details.
-
--e
---edit
-Open the diff vs. the index in an editor and let the user edit it. After the editor was closed, adjust the hunk headers and apply the patch to the index.
-
-The intent of this option is to pick and choose lines of the patch to apply, or even to modify the contents of lines to be staged. This can be quicker and more flexible than using the interactive hunk selector. However, it is easy to confuse oneself and create a patch that does not apply to the index. See EDITING PATCHES below.
-
--u
---update
-Update the index just where it already has an entry matching <pathspec>. This removes as well as modifies index entries to match the working tree, but adds no new files.
-
-If no <pathspec> is given when -u option is used, all tracked files in the entire working tree are updated (old versions of Git used to limit the update to the current directory and its subdirectories).
-
--A
---all
---no-ignore-removal
-Update the index not only where the working tree has a file matching <pathspec> but also where the index already has an entry. This adds, modifies, and removes index entries to match the working tree.
-
-If no <pathspec> is given when -A option is used, all files in the entire working tree are updated (old versions of Git used to limit the update to the current directory and its subdirectories).
-
---no-all
---ignore-removal
-Update the index by adding new files that are unknown to the index and files modified in the working tree, but ignore files that have been removed from the working tree. This option is a no-op when no <pathspec> is used.
-
-This option is primarily to help users who are used to older versions of Git, whose "git add <pathspec>…​" was a synonym for "git add --no-all <pathspec>…​", i.e. ignored removed files.
-
--N
---intent-to-add
-Record only the fact that the path will be added later. An entry for the path is placed in the index with no content. This is useful for, among other things, showing the unstaged content of such files with git diff and committing them with git commit -a.
-
---refresh
-Don’t add the file(s), but only refresh their stat() information in the index.
-
---ignore-errors
-If some files could not be added because of errors indexing them, do not abort the operation, but continue adding the others. The command shall still exit with non-zero status. The configuration variable add.ignoreErrors can be set to true to make this the default behaviour.
-
---ignore-missing
-This option can only be used together with --dry-run. By using this option the user can check if any of the given files would be ignored, no matter if they are already present in the work tree or not.
-
---no-warn-embedded-repo
-By default, git add will warn when adding an embedded repository to the index without using git submodule add to create an entry in .gitmodules. This option will suppress the warning (e.g., if you are manually performing operations on submodules).
-
---renormalize
-Apply the "clean" process freshly to all tracked files to forcibly add them again to the index. This is useful after changing core.autocrlf configuration or the text attribute in order to correct files added with wrong CRLF/LF line endings. This option implies -u.
-
---chmod=(+|-)x
-Override the executable bit of the added files. The executable bit is only changed in the index, the files on disk are left unchanged.
-
---
-This option can be used to separate command-line options from the list of files, (useful when filenames might be mistaken for command-line options).
-
-EXAMPLES
-Adds content from all *.txt files under Documentation directory and its subdirectories:
-
-$ git add Documentation/\*.txt
-Note that the asterisk * is quoted from the shell in this example; this lets the command include the files from subdirectories of Documentation/ directory.
-
-Considers adding content from all git-*.sh scripts:
-
-$ git add git-*.sh
-Because this example lets the shell expand the asterisk (i.e. you are listing the files explicitly), it does not consider subdir/git-foo.sh.
-
-INTERACTIVE MODE
-When the command enters the interactive mode, it shows the output of the status subcommand, and then goes into its interactive command loop.
-
-The command loop shows the list of subcommands available, and gives a prompt "What now> ". In general, when the prompt ends with a single >, you can pick only one of the choices given and type return, like this:
-
-    *** Commands ***
-      1: status       2: update       3: revert       4: add untracked
-      5: patch        6: diff         7: quit         8: help
-    What now> 1
-You also could say s or sta or status above as long as the choice is unique.
-
-The main command loop has 6 subcommands (plus help and quit).
-
-status
-This shows the change between HEAD and index (i.e. what will be committed if you say git commit), and between index and working tree files (i.e. what you could stage further before git commit using git add) for each path. A sample output looks like this:
-
-              staged     unstaged path
-     1:       binary      nothing foo.png
-     2:     +403/-35        +1/-1 git-add--interactive.perl
-It shows that foo.png has differences from HEAD (but that is binary so line count cannot be shown) and there is no difference between indexed copy and the working tree version (if the working tree version were also different, binary would have been shown in place of nothing). The other file, git-add--interactive.perl, has 403 lines added and 35 lines deleted if you commit what is in the index, but working tree file has further modifications (one addition and one deletion).
-
-update
-This shows the status information and issues an "Update>>" prompt. When the prompt ends with double >>, you can make more than one selection, concatenated with whitespace or comma. Also you can say ranges. E.g. "2-5 7,9" to choose 2,3,4,5,7,9 from the list. If the second number in a range is omitted, all remaining patches are taken. E.g. "7-" to choose 7,8,9 from the list. You can say * to choose everything.
-
-What you chose are then highlighted with *, like this:
-
-           staged     unstaged path
-  1:       binary      nothing foo.png
-* 2:     +403/-35        +1/-1 git-add--interactive.perl
-To remove selection, prefix the input with - like this:
-
-Update>> -2
-After making the selection, answer with an empty line to stage the contents of working tree files for selected paths in the index.
-
-revert
-This has a very similar UI to update, and the staged information for selected paths are reverted to that of the HEAD version. Reverting new paths makes them untracked.
-
-add untracked
-This has a very similar UI to update and revert, and lets you add untracked paths to the index.
-
-patch
-This lets you choose one path out of a status like selection. After choosing the path, it presents the diff between the index and the working tree file and asks you if you want to stage the change of each hunk. You can select one of the following options and type return:
-
-y - stage this hunk
-n - do not stage this hunk
-q - quit; do not stage this hunk or any of the remaining ones
-a - stage this hunk and all later hunks in the file
-d - do not stage this hunk or any of the later hunks in the file
-g - select a hunk to go to
-/ - search for a hunk matching the given regex
-j - leave this hunk undecided, see next undecided hunk
-J - leave this hunk undecided, see next hunk
-k - leave this hunk undecided, see previous undecided hunk
-K - leave this hunk undecided, see previous hunk
-s - split the current hunk into smaller hunks
-e - manually edit the current hunk
-? - print help
-After deciding the fate for all hunks, if there is any hunk that was chosen, the index is updated with the selected hunks.
-
-You can omit having to type return here, by setting the configuration variable interactive.singleKey to true.
-
-diff
-This lets you review what will be committed (i.e. between HEAD and index).
-
-EDITING PATCHES
-Invoking git add -e or selecting e from the interactive hunk selector will open a patch in your editor; after the editor exits, the result is applied to the index. You are free to make arbitrary changes to the patch, but note that some changes may have confusing results, or even result in a patch that cannot be applied. If you want to abort the operation entirely (i.e., stage nothing new in the index), simply delete all lines of the patch. The list below describes some common things you may see in a patch, and which editing operations make sense on them.
-
-added content
-Added content is represented by lines beginning with "+". You can prevent staging any addition lines by deleting them.
-
-removed content
-Removed content is represented by lines beginning with "-". You can prevent staging their removal by converting the "-" to a " " (space).
-
-modified content
-Modified content is represented by "-" lines (removing the old content) followed by "+" lines (adding the replacement content). You can prevent staging the modification by converting "-" lines to " ", and removing "+" lines. Beware that modifying only half of the pair is likely to introduce confusing changes to the index.
-
-There are also more complex operations that can be performed. But beware that because the patch is applied only to the index and not the working tree, the working tree will appear to "undo" the change in the index. For example, introducing a new line into the index that is in neither the HEAD nor the working tree will stage the new line for commit, but the line will appear to be reverted in the working tree.
-
-Avoid using these constructs, or do so with extreme caution.
-
-removing untouched content
-Content which does not differ between the index and working tree may be shown on context lines, beginning with a " " (space). You can stage context lines for removal by converting the space to a "-". The resulting working tree file will appear to re-add the content.
-
-modifying existing content
-One can also modify context lines by staging them for removal (by converting " " to "-") and adding a "+" line with the new content. Similarly, one can modify "+" lines for existing additions or modifications. In all cases, the new modification will appear reverted in the working tree.
-
-new content
-You may also add new content that does not exist in the patch; simply add new lines, each starting with "+". The addition will appear reverted in the working tree.
-
-There are also several operations which should be avoided entirely, as they will make the patch impossible to apply:
-
-adding context (" ") or removal ("-") lines
-
-deleting context or removal lines
-
-modifying the contents of context or removal lines
-
-SEE ALSO
-git-status(1) git-rm(1) git-reset(1) git-mv(1) git-commit(1) git-update-index(1)
-
-GIT
-Part of the git(1) suite
+C:\Users\vitsin\Documents\git\test_git\devops-netology>mkdir branching
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>cd branching
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>cd ..
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git status
+HEAD detached from origin/main
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+        branching/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git add branching/*
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git status
+HEAD detached from origin/main
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   branching/merge.sh
+        new file:   branching/rebase.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git commit -m "prepare for merge and rebase"
+[detached HEAD 52b2226] prepare for merge and rebase
+ 2 files changed, 16 insertions(+)
+ create mode 100644 branching/merge.sh
+ create mode 100644 branching/rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git branch
+* (HEAD detached from origin/main)
+  exp
+  fix
+  main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git remote
+bitbucket
+gitlab
+origin
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git push origin
+fatal: You are not currently on a branch.
+To push the history leading to the current (detached HEAD)
+state now, use
+
+    git push origin HEAD:<name-of-remote-branch>
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git checkout main
+Warning: you are leaving 1 commit behind, not connected to
+any of your branches:
+
+  52b2226 prepare for merge and rebase
+
+If you want to keep it by creating a new branch, this may be a good time
+to do so with:
+
+ git branch <new-branch-name> 52b2226
+
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git log --graph
+* commit 16ca2292b1b060b30265d39cc295d6c732b90c6d (HEAD -> main, tag: v0.1, tag: v0.0, origin/main, origin/HEAD, gitlab/main, bitbucket/main)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Thu Jul 15 14:26:40 2021 +0300
+|
+|     before push
+|
+* commit 5491f27f241ce30d678f4e1bcfad08840d8060a6
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:37:15 2021 +0300
+|
+|     help for git & git add
+|
+* commit b438fb10a9aaa5aa85378d316a55f7eda464a8a3
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:29:40 2021 +0300
+|
+|     Moved and deleted
+|
+* commit d47c68a17546655e253b3e1fff1fa1ca933f4dfd
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:27:23 2021 +0300
+|
+|     prepare to delete and move
+|
+* commit 5edc0c65080093692950e7adf2ae23d09883f06a
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:23:57 2021 +0300
+|
+|     Added gitignore
+|
+* commit b561454a62a021e5cd15a3d4baf673a8ddabae78
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:06:39 2021 +0300
+|
+|     first commit
+|
+* commit 511b14da26901c2ad7c54d47fef6f7da99a14faa
+  Author: vitsinv <79792682+vitsinv@users.noreply.github.com>
+  Date:   Mon Jul 12 18:52:40 2021 +0300
+
+      Initial commit
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>cd
+C:\Users\vitsin\Documents\git\test_git\devops-netology
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>dir
+ Том в устройстве C имеет метку Windows
+ Серийный номер тома: A64B-8ACC
+
+ Содержимое папки C:\Users\vitsin\Documents\git\test_git\devops-netology
+
+19.07.2021  19:46    <DIR>          .
+19.07.2021  19:46    <DIR>          ..
+12.07.2021  19:08                40 .gitignore
+19.07.2021  19:41    <DIR>          .idea
+16.07.2021  13:10                13 has_been_moved.txt
+19.07.2021  19:46            18 029 README.md
+16.07.2021  13:10    <DIR>          terraform
+               3 файлов         18 082 байт
+               4 папок  193 127 161 856 байт свободно
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git checkout exp
+Switched to branch 'exp'
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>dir
+ Том в устройстве C имеет метку Windows
+ Серийный номер тома: A64B-8ACC
+
+ Содержимое папки C:\Users\vitsin\Documents\git\test_git\devops-netology
+
+19.07.2021  19:47    <DIR>          .
+19.07.2021  19:47    <DIR>          ..
+12.07.2021  19:08                40 .gitignore
+19.07.2021  19:41    <DIR>          .idea
+16.07.2021  13:10                13 has_been_moved.txt
+19.07.2021  19:47                23 README.md
+16.07.2021  13:10    <DIR>          terraform
+               3 файлов             76 байт
+               4 папок  193 127 182 336 байт свободно
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git checkout fix
+Switched to branch 'fix'
+Your branch is up to date with 'origin/fix'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>dir
+ Том в устройстве C имеет метку Windows
+ Серийный номер тома: A64B-8ACC
+
+ Содержимое папки C:\Users\vitsin\Documents\git\test_git\devops-netology
+
+19.07.2021  19:48    <DIR>          .
+19.07.2021  19:48    <DIR>          ..
+12.07.2021  19:08                40 .gitignore
+19.07.2021  19:41    <DIR>          .idea
+19.07.2021  19:48             1 411 README.md
+19.07.2021  19:48    <DIR>          terraform
+19.07.2021  19:48                15 will_be_deleted.txt
+19.07.2021  19:48                54 will_be_moved.txt
+               4 файлов          1 520 байт
+               4 папок  193 126 785 024 байт свободно
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>mkdir branching
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>cd branching
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>dir
+ Том в устройстве C имеет метку Windows
+ Серийный номер тома: A64B-8ACC
+
+ Содержимое папки C:\Users\vitsin\Documents\git\test_git\devops-netology\branching
+
+19.07.2021  19:49    <DIR>          .
+19.07.2021  19:49    <DIR>          ..
+               0 файлов              0 байт
+               2 папок  193 126 432 768 байт свободно
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ../.idea/
+        ./
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>cd ..
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .idea/
+        branching/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git add branching/
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git commit -m "prepare for merge and rebase"
+[main dad3773] prepare for merge and rebase
+ 2 files changed, 16 insertions(+)
+ create mode 100644 branching/merge.sh
+ create mode 100644 branching/rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git remote
+bitbucket
+gitlab
+origin
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git push origin
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 459 bytes | 459.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/vitsinv/devops-netology/
+   16ca229..dad3773  main -> main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git branch
+  exp
+  fix
+* main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git checkout -b git-merge
+Switched to a new branch 'git-merge'
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>git branch
+  exp
+  fix
+* git-merge
+  main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>notepad /branching/merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology>cd branching
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git status
+On branch git-merge
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   merge.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ../.idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "merge: @ instead *"
+[git-merge 2ad18d0] merge: @ instead *
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin
+fatal: The current branch git-merge has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin git-merge
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git branch
+  exp
+  fix
+* git-merge
+  main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push --set-upstream origin git-merge
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 388 bytes | 388.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+remote:
+remote: Create a pull request for 'git-merge' on GitHub by visiting:
+remote:      https://github.com/vitsinv/devops-netology/pull/new/git-merge
+remote:
+To https://github.com/vitsinv/devops-netology/
+ * [new branch]      git-merge -> git-merge
+Branch 'git-merge' set up to track remote branch 'git-merge' from 'origin'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git log --graph --all
+* commit 2ad18d0c068c0d31275fc5c6f6eb76c5bfc60db7 (HEAD -> git-merge, origin/git-merge)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 19 19:55:46 2021 +0300
+|
+|     merge: @ instead *
+|
+* commit dad37735803fcc458d7eb55c23716734371c66e3 (origin/main, origin/HEAD, main)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 19 19:51:17 2021 +0300
+|
+|     prepare for merge and rebase
+|
+| * commit e7ad8614b5577ededd9e4091ba3de326a985f606 (exp)
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Mon Jul 19 18:51:07 2021 +0300
+|
+|       test in exp branch
+|
+* commit 16ca2292b1b060b30265d39cc295d6c732b90c6d (tag: v0.1, tag: v0.0, gitlab/main, bitbucket/main)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Thu Jul 15 14:26:40 2021 +0300
+|
+|     before push
+|
+* commit 5491f27f241ce30d678f4e1bcfad08840d8060a6
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:37:15 2021 +0300
+|
+|     help for git & git add
+|
+* commit b438fb10a9aaa5aa85378d316a55f7eda464a8a3
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:29:40 2021 +0300
+|
+|     Moved and deleted
+|
+| * commit 3c2c5b667d3a600eb83856ed8ecf48353c69c186 (origin/fix, fix)
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Thu Jul 15 16:24:51 2021 +0300
+| |
+| |     Second Update with Pycharm
+| |
+| * commit 392f696ffc11f82e69c9f2aeabcd11ad181befc2
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Thu Jul 15 16:22:42 2021 +0300
+| |
+| |     Updated with Pycharm
+| |
+| * commit 5c5891d0b81dbcef5de00be71abcce2923f6ceed
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Thu Jul 15 16:03:55 2021 +0300
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add merge.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "merge: use shift"
+[git-merge fc70f70] merge: use shift
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 463 bytes | 463.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/vitsinv/devops-netology/
+   2ad18d0..fc70f70  git-merge -> git-merge
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   rebase.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ../.idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "change rebase.sh"
+[main b42d05e] change rebase.sh
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 398 bytes | 398.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/vitsinv/devops-netology/
+   dad3773..b42d05e  main -> main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git log --oneline
+b42d05e (HEAD -> main, origin/main, origin/HEAD) change rebase.sh
+dad3773 prepare for merge and rebase
+16ca229 (tag: v0.1, tag: v0.0, gitlab/main, bitbucket/main) before push
+5491f27 help for git & git add
+b438fb1 Moved and deleted
+d47c68a prepare to delete and move
+5edc0c6 Added gitignore
+b561454 first commit
+511b14d Initial commit
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git checkout dad3773
+Note: switching to 'dad3773'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at dad3773 prepare for merge and rebase
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git-rebase
+"git-rebase" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git rebase
+You are not currently on a branch.
+Please specify which branch you want to rebase against.
+See git-rebase(1) for details.
+
+    git rebase '<branch>'
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git branch
+* (HEAD detached at dad3773)
+  exp
+  fix
+  git-merge
+  main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git rebase dad3773
+HEAD is up to date.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git log --graph --all
+* commit b42d05e90e2be9799606ac72c025f358ccd929ff (origin/main, origin/HEAD, main)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 19 20:03:05 2021 +0300
+|
+|     change rebase.sh
+|
+| * commit fc70f700cead97ac159e05d4c62c98bb8335a83c (origin/git-merge, git-merge)
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Mon Jul 19 20:01:21 2021 +0300
+| |
+| |     merge: use shift
+| |
+| * commit 2ad18d0c068c0d31275fc5c6f6eb76c5bfc60db7
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Mon Jul 19 19:55:46 2021 +0300
+|
+|       merge: @ instead *
+|
+* commit dad37735803fcc458d7eb55c23716734371c66e3 (HEAD)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 19 19:51:17 2021 +0300
+|
+|     prepare for merge and rebase
+|
+| * commit e7ad8614b5577ededd9e4091ba3de326a985f606 (exp)
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Mon Jul 19 18:51:07 2021 +0300
+|
+|       test in exp branch
+|
+* commit 16ca2292b1b060b30265d39cc295d6c732b90c6d (tag: v0.1, tag: v0.0, gitlab/main, bitbucket/main)
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Thu Jul 15 14:26:40 2021 +0300
+|
+|     before push
+|
+* commit 5491f27f241ce30d678f4e1bcfad08840d8060a6
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:37:15 2021 +0300
+|
+|     help for git & git add
+|
+* commit b438fb10a9aaa5aa85378d316a55f7eda464a8a3
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 12 19:29:40 2021 +0300
+|
+|     Moved and deleted
+|
+| * commit 3c2c5b667d3a600eb83856ed8ecf48353c69c186 (origin/fix, fix)
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Thu Jul 15 16:24:51 2021 +0300
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git status
+HEAD detached at dad3773
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   rebase.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ../.idea/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "git-rebase 1"
+[detached HEAD 10a2200] git-rebase 1
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin git-rebase
+error: src refspec git-rebase does not match any
+error: failed to push some refs to 'https://github.com/vitsinv/devops-netology/'
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git restore
+fatal: you must specify path(s) to restore
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git branch
+* (HEAD detached from dad3773)
+  exp
+  fix
+  git-merge
+  main
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git reset --HARD HEAD~1
+error: unknown option `HARD'
+usage: git reset [--mixed | --soft | --hard | --merge | --keep] [-q] [<commit>]
+   or: git reset [-q] [<tree-ish>] [--] <pathspec>...
+   or: git reset [-q] [--pathspec-from-file [--pathspec-file-nul]] [<tree-ish>]
+   or: git reset --patch [<tree-ish>] [--] [<pathspec>...]
+   or: DEPRECATED: git reset [-q] [--stdin [-z]] [<tree-ish>]
+
+    -q, --quiet           be quiet, only report errors
+    --mixed               reset HEAD and index
+    --soft                reset only HEAD
+    --hard                reset HEAD, index and working tree
+    --merge               reset HEAD, index and working tree
+    --keep                reset HEAD but keep local changes
+    --recurse-submodules[=<reset>]
+                          control recursive updating of submodules
+    -p, --patch           select hunks interactively
+    -N, --intent-to-add   record only the fact that removed paths will be added later
+    --pathspec-from-file <file>
+                          read pathspec from file
+    --pathspec-file-nul   with --pathspec-from-file, pathspec elements are separated with NUL character
+    -z                    DEPRECATED (use --pathspec-file-nul instead): paths are separated with NUL character
+    --stdin               DEPRECATED (use --pathspec-from-file=- instead): read paths from <stdin>
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git reset --hard HEAD~1
+HEAD is now at dad3773 prepare for merge and rebase
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git switch -b git-rebase
+error: unknown switch `b'
+usage: git switch [<options>] [<branch>]
+
+    -c, --create <branch>
+                          create and switch to a new branch
+    -C, --force-create <branch>
+                          create/reset and switch to a branch
+    --guess               second guess 'git switch <no-such-branch>'
+    --discard-changes     throw away local modifications
+    -q, --quiet           suppress progress reporting
+    --recurse-submodules[=<checkout>]
+                          control recursive updating of submodules
+    --progress            force progress reporting
+    -m, --merge           perform a 3-way merge with the new branch
+    --conflict <style>    conflict style (merge or diff3)
+    -d, --detach          detach HEAD at named commit
+    -t, --track           set upstream info for new branch
+    -f, --force           force checkout (throw away local modifications)
+    --orphan <new-branch>
+                          new unparented branch
+    --overwrite-ignore    update ignored files (default)
+    --ignore-other-worktrees
+                          do not check if another worktree is holding the given ref
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git checkout -b git-rebase
+Switched to a new branch 'git-rebase'
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepade rebase.sh
+"notepade" не является внутренней или внешней
+командой, исполняемой программой или пакетным файлом.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "git-rebase 1"
+[git-rebase 9ab3490] git-rebase 1
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin git-rebse
+error: src refspec git-rebse does not match any
+error: failed to push some refs to 'https://github.com/vitsinv/devops-netology/'
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin git-rebase
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 456 bytes | 456.00 KiB/s, done.
+Total 4 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+remote:
+remote: Create a pull request for 'git-rebase' on GitHub by visiting:
+remote:      https://github.com/vitsinv/devops-netology/pull/new/git-rebase
+remote:
+To https://github.com/vitsinv/devops-netology/
+ * [new branch]      git-rebase -> git-rebase
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git add rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git commit -m "git-rebase 2"
+[git-rebase 446e51e] git-rebase 2
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push origin git-rebase
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 378 bytes | 378.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To https://github.com/vitsinv/devops-netology/
+   9ab3490..446e51e  git-rebase -> git-rebase
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git merge git-merge
+Merge made by the 'recursive' strategy.
+ branching/merge.sh | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push
+fatal: The current branch git-rebase has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin git-rebase
+
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push --set-upstream origin git-rebase
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 377 bytes | 377.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/vitsinv/devops-netology/
+   446e51e..452a439  git-rebase -> git-rebase
+Branch 'git-rebase' set up to track remote branch 'git-rebase' from 'origin'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git log --oneline
+452a439 (HEAD -> git-rebase, origin/git-rebase) Merge branch 'git-merge' into git-rebase
+446e51e git-rebase 2
+9ab3490 git-rebase 1
+fc70f70 (origin/git-merge, git-merge) merge: use shift
+2ad18d0 merge: @ instead *
+dad3773 prepare for merge and rebase
+16ca229 (tag: v0.1, tag: v0.0, gitlab/main, bitbucket/main) before push
+5491f27 help for git & git add
+b438fb1 Moved and deleted
+d47c68a prepare to delete and move
+5edc0c6 Added gitignore
+b561454 first commit
+511b14d Initial commit
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git reset --hard 446e51e
+HEAD is now at 446e51e git-rebase 2
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git log --graph --all
+*   commit 452a4390706638b741d2d667301b4869f4810aaf (origin/git-rebase)
+|\  Merge: 446e51e fc70f70
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Mon Jul 19 20:18:14 2021 +0300
+| |
+| |     Merge branch 'git-merge' into git-rebase
+| |
+| * commit fc70f700cead97ac159e05d4c62c98bb8335a83c (origin/git-merge, git-merge)
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Mon Jul 19 20:01:21 2021 +0300
+| |
+| |     merge: use shift
+| |
+| * commit 2ad18d0c068c0d31275fc5c6f6eb76c5bfc60db7
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Mon Jul 19 19:55:46 2021 +0300
+| |
+| |     merge: @ instead *
+| |
+* | commit 446e51e19b16be491913a72dc31672de4c2b792e (HEAD -> git-rebase)
+| | Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| | Date:   Mon Jul 19 20:17:00 2021 +0300
+| |
+| |     git-rebase 2
+| |
+* | commit 9ab349030ff207bd33923c35a3d2cd6ebb15f935
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Mon Jul 19 20:15:25 2021 +0300
+|
+|       git-rebase 1
+|
+| * commit b42d05e90e2be9799606ac72c025f358ccd929ff (origin/main, origin/HEAD, main)
+|/  Author: Viktor Vinogradov <v.vitsin@gmail.com>
+|   Date:   Mon Jul 19 20:03:05 2021 +0300
+|
+|       change rebase.sh
+|
+* commit dad37735803fcc458d7eb55c23716734371c66e3
+| Author: Viktor Vinogradov <v.vitsin@gmail.com>
+| Date:   Mon Jul 19 19:51:17 2021 +0300
+pick 9ab3490 git-rebase 1
+pick 446e51e git-rebase 2
+
+# Rebase 8747635..446e51e onto 8747635 (2 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup [-C | -c] <commit> = like "squash" but keep only the previous
+#                    commit's log message, unless -C is used, in which case
+#                    keep only this commit's message; -c is same as -C but
+#                    opens the editor
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+# .       create a merge commit using the original merge commit's
+# .       message (or the oneline, if no original merge commit was
+# .       specified); use -c <commit> to reword the commit message
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                C:/Users/vitsin/Documents/git/test_git/devops-netology/.git/rebase-merge/git-rebase-todo [unix] (20:32 19/07/2021)                                                                                        1,1 All
+
+
+
+
+
+
+
+
+
+
+
+
+
+git-rebase 1
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 8747635
+# Last command done (1 command done):
+#    pick 9ab3490 git-rebase 1
+# Next command to do (1 remaining command):
+#    pick 446e51e git-rebase 2
+# You are currently rebasing branch 'git-rebase' on '8747635'.
+#
+# Changes to be committed:
+#       modified:   branching/rebase.sh
+#
+# Untracked files:
+#       .idea/
+#
+~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                C:/Users/vitsin/Documents/git/test_git/devops-netology/.git/COMMIT_EDITMSG [unix] (20:35 19/07/2021)                                                                                                      1,1 All
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git-rebase 2
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 8747635
+# Last commands done (2 commands done):
+#    pick 9ab3490 git-rebase 1
+#    pick 446e51e git-rebase 2
+# No commands remaining.
+# You are currently rebasing branch 'git-rebase' on '8747635'.
+#
+# Changes to be committed:
+#       modified:   branching/rebase.sh
+#
+# Untracked files:
+#       .idea/
+#
+~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                ~                                                                                                                                                                                                                C:/Users/vitsin/Documents/git/test_git/devops-netology/.git/COMMIT_EDITMSG [unix] (20:36 19/07/2021)                                                                                                      1,1 All
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[detached HEAD ed14308] git-rebase 2
+ 1 file changed, 4 deletions(-)
+Successfully rebased and updated refs/heads/git-rebase.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>notepad rebase.sh
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git push -u origin git-rebase -f
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 670 bytes | 335.00 KiB/s, done.
+Total 5 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/vitsinv/devops-netology/
+ + 446e51e...ed14308 git-rebase -> git-rebase (forced update)
+Branch 'git-rebase' set up to track remote branch 'git-rebase' from 'origin'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+C:\Users\vitsin\Documents\git\test_git\devops-netology\branching>git merge git-rebase
+Updating 8747635..ed14308
+Fast-forward
